@@ -58,6 +58,11 @@ export default class TurnsController {
 
             io.emit('UPDATE_PARTICIPANT', payload)
 
+            io.emit('action', {
+                type: 'UPDATE_PARTICIPANT',
+                payload: payload
+              })
+
             const [{'sum': sumpayload}] = await Participant.query(`SELECT SUM(number_of_pieces) FROM participants where session_id=${session.id}`)
 
             session.piecesToComplete = sumpayload
@@ -66,6 +71,12 @@ export default class TurnsController {
             const [updatedSession] =await Session.query(`select * from sessions where id=${session.id}`)
 
             io.emit( 'UPDATE_SESSION', updatedSession )
+
+
+            io.emit('action', {
+                type: 'UPDATE_SESSION',
+                payload: updatedSession
+              })
 
             
             return newTurn

@@ -60,11 +60,19 @@ let TurnsController = class TurnsController {
         const updatedParticipant = await participant.save();
         const [payload] = await entity_1.Participant.query(`select * from participants where id=${updatedParticipant.id}`);
         index_1.io.emit('UPDATE_PARTICIPANT', payload);
+        index_1.io.emit('action', {
+            type: 'UPDATE_PARTICIPANT',
+            payload: payload
+        });
         const [{ 'sum': sumpayload }] = await entity_1.Participant.query(`SELECT SUM(number_of_pieces) FROM participants where session_id=${session.id}`);
         session.piecesToComplete = sumpayload;
         await session.save();
         const [updatedSession] = await entity_1.Session.query(`select * from sessions where id=${session.id}`);
         index_1.io.emit('UPDATE_SESSION', updatedSession);
+        index_1.io.emit('action', {
+            type: 'UPDATE_SESSION',
+            payload: updatedSession
+        });
         return newTurn;
     }
 };
