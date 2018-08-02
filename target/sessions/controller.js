@@ -53,6 +53,10 @@ let SessionsController = class SessionsController {
         await participant.save();
         const [payload] = await entity_1.Session.query(`select * from sessions where id=${updatedSession.id}`);
         index_1.io.emit('UPDATE_SESSION', payload);
+        index_1.io.emit('action', {
+            type: 'UPDATE_SESSION',
+            payload: updatedSession
+        });
         const newParticipant = await entity_1.Participant.query(`select * from participants where id=${participant.id}`);
         return newParticipant;
     }
@@ -64,6 +68,10 @@ let SessionsController = class SessionsController {
         const updatedSession = await session.save();
         const [payload] = await entity_1.Session.query(`select * from sessions where id=${updatedSession.id}`);
         index_1.io.emit('UPDATE_SESSION', payload);
+        index_1.io.emit('action', {
+            type: 'UPDATE_SESSION',
+            payload: payload
+        });
         return payload;
     }
 };

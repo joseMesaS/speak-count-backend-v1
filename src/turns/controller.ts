@@ -76,7 +76,7 @@ export default class TurnsController {
             io.emit('action', {
                 type: 'UPDATE_SESSION',
                 payload: updatedSession
-              })
+            })
 
             
             return newTurn
