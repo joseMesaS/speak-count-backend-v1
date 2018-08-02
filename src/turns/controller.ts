@@ -28,6 +28,7 @@ export default class TurnsController {
     async createTurn(
         @Body() { sessionId , participantId, startTime, endTime} : AuthenticatePayload
         ) {
+            console.log("ssssssssssssssssssssssssssssssssssssssssssssssssssss")
             const session = await Session.findOne(sessionId)
             if(!session) throw new NotFoundError('Session not found')
             if(session.status !== 'started') throw new ForbiddenError("the sessison hasn't started yet")
@@ -42,11 +43,11 @@ export default class TurnsController {
             turn.startTime = startTime
             turn.endtTime = endTime
             const newTurn = await turn.save()
-
+            console.log(endTime,startTime)
             
             const timeSpoken =  Math.round((new Date(endTime).getTime() - new Date(startTime).getTime())/1000)
            
-
+            console.log(timeSpoken)
             participant.timeSpeakingSeconds = participant.timeSpeakingSeconds + timeSpoken
             if(participant.timeSpeakingSeconds > session.timePerPiece && participant.timeSpeakingSeconds <= 5*session.timePerPiece){
                 participant.numberOfPieces = 5 - Math.trunc(participant.timeSpeakingSeconds/session.timePerPiece)

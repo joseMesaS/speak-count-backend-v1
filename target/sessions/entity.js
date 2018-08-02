@@ -46,7 +46,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Session.prototype, "stimatedTime", void 0);
 __decorate([
-    typeorm_1.Column({ default: 0 }),
+    typeorm_1.Column('numeric', { default: 0 }),
     __metadata("design:type", Number)
 ], Session.prototype, "timePerPiece", void 0);
 __decorate([

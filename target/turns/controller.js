@@ -38,6 +38,7 @@ __decorate([
 ], AuthenticatePayload.prototype, "endTime", void 0);
 let TurnsController = class TurnsController {
     async createTurn({ sessionId, participantId, startTime, endTime }) {
+        console.log("ssssssssssssssssssssssssssssssssssssssssssssssssssss");
         const session = await entity_1.Session.findOne(sessionId);
         if (!session)
             throw new routing_controllers_1.NotFoundError('Session not found');
@@ -52,7 +53,9 @@ let TurnsController = class TurnsController {
         turn.startTime = startTime;
         turn.endtTime = endTime;
         const newTurn = await turn.save();
+        console.log(endTime, startTime);
         const timeSpoken = Math.round((new Date(endTime).getTime() - new Date(startTime).getTime()) / 1000);
+        console.log(timeSpoken);
         participant.timeSpeakingSeconds = participant.timeSpeakingSeconds + timeSpoken;
         if (participant.timeSpeakingSeconds > session.timePerPiece && participant.timeSpeakingSeconds <= 5 * session.timePerPiece) {
             participant.numberOfPieces = 5 - Math.trunc(participant.timeSpeakingSeconds / session.timePerPiece);

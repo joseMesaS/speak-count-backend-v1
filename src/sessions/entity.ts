@@ -28,7 +28,7 @@ export class Session extends BaseEntity {
   @Column({nullable: true})
   stimatedTime: number
 
-  @Column({ default: 0})
+  @Column('numeric',{ default: 0})
   timePerPiece: number
 
   @Column('text',{nullable: true, default: 'created'})
